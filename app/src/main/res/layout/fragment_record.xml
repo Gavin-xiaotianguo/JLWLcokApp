@@ -1,0 +1,353 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.example.gxt.jlwlcokapp.RecordFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+
+        android:id="@+id/select_classroom"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/teaching_building"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/textView5"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/spinner"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/floor"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/textView2"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/spinner1"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/classroom"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/spinner2"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="使用理由："
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/textView4"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:minLines="2"
+                android:maxLines="5"
+
+                android:id="@+id/tv_apply_reason"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="使用时间："
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/item1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="#444444"
+                    android:hint="开始时间"
+                    android:textSize="15sp">
+                </EditText>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="#dddddd"
+                    />
+                <EditText
+                    android:id="@+id/item2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="#444444"
+                    android:hint="结束时间"
+                    android:textSize="15sp"></EditText>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenYellow"
+            />
+
+        <Button
+            android:id="@+id/btn_send_request"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="申请使用该教室"
+            android:background="@drawable/buttonstyle"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tv_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text=""
+            android:textSize="20dp"
+            android:textColor="@color/colorDarkGrey"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>
+    <!--   <LinearLayout
+           android:id="@+id/main_state"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/select_classroom"
+           android:layout_marginTop="60dp"
+           android:orientation="vertical"
+           android:weightSum="1">
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="5dp"
+               android:background="@color/colorGreenYellow"
+               />
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/tv_main_lock_name"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="20dp"
+                       android:layout_marginTop="10dp"
+                       android:paddingEnd="10dp"
+                       android:paddingStart="10dp"
+                       android:textColor="@color/colorPrimary"
+                       android:text="可用教室 : "/>
+
+                   <TextView
+                       android:id="@+id/tv_lock_name"
+                       android:layout_width="180dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"/>
+               </LinearLayout>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="1px"
+                   android:layout_marginStart="20dp"
+                   android:layout_marginTop="10dp"
+                   android:background="@color/colorGreenYellow"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/tv_main_lock_state"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="20dp"
+                       android:layout_marginTop="10dp"
+                       android:paddingEnd="10dp"
+                       android:paddingStart="10dp"
+                       android:textColor="@color/colorPrimary"
+                       android:text="门锁状态 : "/>
+
+                   <TextView
+                       android:id="@+id/tv_lock_state"
+                       android:layout_width="180dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"/>
+               </LinearLayout>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="1px"
+                   android:layout_marginStart="20dp"
+                   android:layout_marginTop="10dp"
+                   android:background="@color/colorGreenYellow"
+                   />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/tv_main_power_state"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginBottom="10dp"
+                       android:layout_marginStart="20dp"
+                       android:layout_marginTop="10dp"
+                       android:paddingEnd="10dp"
+                       android:paddingStart="10dp"
+                       android:textColor="@color/colorPrimary"
+                       android:text="剩余电量 : "/>
+
+                   <TextView
+                       android:id="@+id/tv_power_state"
+                       android:layout_width="180dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"/>
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@color/colorGreenYellow"
+               />
+
+           <Button
+               android:id="@+id/btn_password_getpassword"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="20dp"
+               android:text="开锁"
+               android:background="@color/colorGray"
+               />
+
+       </LinearLayout>-->
+
+
+

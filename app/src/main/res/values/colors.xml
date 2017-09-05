@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWindowBackground">#dedede</color>
+    <color name="colorDarkGrey">#676767</color>
+    <color name="colorPaleGreen">#98fb98</color> //苍白的绿色
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGreenYellow">#ADFF2F</color>
+    <color name="colorGray">#808080</color>
+    <color name="colorAuqamarin">#39ac60</color>
+    <color name="colorSkyBlue">#87CEEB</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLucency">#00000000</color>
+   
+</resources>
