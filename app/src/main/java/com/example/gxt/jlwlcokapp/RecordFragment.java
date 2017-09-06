@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,12 @@ import android.widget.Toast;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.bean.DateType;
 import com.example.gxt.jlwlcokapp.web.WebServicePost;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 //import com.example.web.WebServicePost;
 
@@ -39,7 +46,7 @@ public class RecordFragment extends Fragment {
     private TextView tv_feedback;
     private EditText item1;
     private EditText item2;
-
+    private EditText applyreason;
 
     private Button key;
     private String userid;
@@ -48,21 +55,21 @@ public class RecordFragment extends Fragment {
     private static Handler handler = new Handler();
     private String s;
 
-
     private String startTime;
     private String endTime;
+    ArrayList my1=new ArrayList( );
+    JSONObject jsonRoom=new JSONObject(  );
     String[] classbar = new String[]{"00", "00", "00"};
     String[] buildingdata = new String[]{" ", "博弈", "笃行"};
     String[] floordata = new String[]{" ", "三楼", "四楼", "五楼", "六楼"};
     String[] classroomdata = new String[]{" ", "02", "03", "04", "05", "06"};
-
 
         // 子线程接收数据，主线程修改数据
         public class MyThread implements Runnable {
 
             @Override
             public void run() {
-               s = WebServicePost.executeHttpPost(userid,mClassroom,"ApplyServlet");
+               s = WebServicePost.executeHttpPost(userid,mClassroom,"ApplyServlet",jsonRoom.toString());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -73,6 +80,25 @@ public class RecordFragment extends Fragment {
             }
 
         }
+
+
+
+    public String convert(String utfString){//unicode编码字符转为中文字符
+        StringBuilder sb = new StringBuilder();
+        int i = -1;
+        int pos = 0;
+
+        while((i=utfString.indexOf("\\u", pos)) != -1){
+            sb.append(utfString.substring(pos, i));
+            if(i+5 < utfString.length()){
+                pos = i+6;
+                sb.append((char)Integer.parseInt(utfString.substring(i+2, i+6), 16));
+            }
+        }
+        sb.append(utfString.substring(pos));
+
+        return sb.toString();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +115,20 @@ public class RecordFragment extends Fragment {
 
         Bundle bundle = getArguments();
         userid = bundle.getString("DATA1");
+
+        s=bundle.getString("DATA3");
+        s=convert(s);
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(s);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                my1.add(jsonObject.getString("教学楼"));}
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         item1 = (EditText) getActivity().findViewById(R.id.item1);
         item1.setInputType(InputType.TYPE_NULL);
         item2 = (EditText) getActivity().findViewById(R.id.item2);
@@ -96,21 +136,29 @@ public class RecordFragment extends Fragment {
 
         tv_feedback = (TextView) getActivity().findViewById(R.id.tv_feedback);
 
+        applyreason =(EditText) getActivity().findViewById(R.id.tv_apply_reason);
+
         key = (Button) getActivity().findViewById(R.id.btn_send_request);
 
         building = (Spinner) getActivity().findViewById(R.id.spinner);
         floor = (Spinner) getActivity().findViewById(R.id.spinner1);
         classroom = (Spinner) getActivity().findViewById(R.id.spinner2);
 
-        building.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, buildingdata));
+        building.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, my1));
         floor.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, floordata));
         classroom.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, classroomdata));
 
         building.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = buildingdata[position];
+                String str = (String)my1.get(position);
                 classbar[0] = str;
+                try{
+                    jsonRoom.put("教学楼",classbar[0]) ;
+                }catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -120,8 +168,15 @@ public class RecordFragment extends Fragment {
         floor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String str1 = floordata[position];
                 classbar[1] = str1;
+                try {
+                    jsonRoom.put("楼层",classbar[1]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -134,6 +189,12 @@ public class RecordFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String str2 = classroomdata[position];
                 classbar[2] = str2;
+                try {
+                    jsonRoom.put("房间号",classbar[2]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -143,7 +204,16 @@ public class RecordFragment extends Fragment {
 
         key.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mClassroom = classbar[0] + classbar[1] + classbar[2];
+
+
+                try {
+                    jsonRoom.put("申请理由",applyreason.getText().toString());
+                    jsonRoom.put("开始时间","9:00");
+                    jsonRoom.put("结束时间","11:00");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 new Thread(new MyThread()).start();
             }
         });
@@ -163,8 +233,11 @@ public class RecordFragment extends Fragment {
             }
         });
     }
+
+
     private void showDatePickDialog(DateType type) {
         DatePickDialog dialog = new DatePickDialog(getActivity());
+
         //设置上下年分限制
         dialog.setYearLimt(5);
         //设置标题
@@ -180,6 +253,10 @@ public class RecordFragment extends Fragment {
         dialog.show();
     }
 
+    public void getDate(String Date) {
+        DateUtils gd = new DateUtils();
+
+    }
 }
 
 

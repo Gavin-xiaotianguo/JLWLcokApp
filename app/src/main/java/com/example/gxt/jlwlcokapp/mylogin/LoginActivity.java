@@ -51,7 +51,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private ProgressDialog dialog;
     // 返回的数据
     private String info;
-    String bname;
+    private String bname;
+    private String building;
     private boolean flage = true;
     // 返回主线程更新数据
     private static Handler handler = new Handler();
@@ -157,7 +158,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         @Override
         public void run() {
             info = WebService.executeHttpGet(username.getText().toString(), password.getText().toString(), "HelloServlet");
-            bname = WebServicePost.executeHttpPost(username.getText().toString(), password.getText().toString(),"RoomServlet");
+            bname = WebServicePost.executeHttpPost(username.getText().toString(), password.getText().toString(),"RoomServlet"," ");
+            building = WebServicePost.executeHttpPost(username.getText( ).toString(),password.getText().toString(),"JsonServlet","申请理由");
 
             handler.post(new Runnable() {
                 @Override
@@ -170,6 +172,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         LogItn.putExtra("identity", info);
                         LogItn.putExtra("bname", bname);
                         LogItn.putExtra( "usr",username.getText().toString() );
+                        LogItn.putExtra( "building",building );
                         LogItn.setClass(LoginActivity.this, MainActivity.class);
                         mDialog.dismiss();
                         startActivity(LogItn);
@@ -178,6 +181,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         Intent LogItn = new Intent();
                         LogItn.putExtra("identity", info);
                         LogItn.putExtra("bname", bname);
+                        LogItn.putExtra( "usr",username.getText().toString() );
+                        LogItn.putExtra( "building",building );
                         LogItn.setClass(LoginActivity.this, MainActivity.class);
                         mDialog.dismiss();
                         startActivity(LogItn);
@@ -186,6 +191,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         Intent LogItn = new Intent();
                         LogItn.putExtra("identity", info);
                         LogItn.putExtra("bname", bname);
+                        LogItn.putExtra( "usr",username.getText().toString() );
+                        LogItn.putExtra( "building",building );
                         LogItn.setClass(LoginActivity.this, Main2Activity.class);
                         mDialog.dismiss();
                         startActivity(LogItn);

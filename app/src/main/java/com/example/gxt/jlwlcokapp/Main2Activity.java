@@ -60,9 +60,12 @@ public class Main2Activity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();//.getExtras()得到intent所附带的额外数据
         String bname= bundle.getString("bname");
         String usr=bundle.getString("usr");
+        String building=bundle.getString( "building" );
+
         Bundle bundle1 = new Bundle();
         bundle1.putString("DATA",bname);//这里的values就是我们要传的值
         bundle1.putString("DATA1",usr);
+        bundle1.putString("DATA3",building);
         // 初始化fragments
         mFragments = new ArrayList<>();
         DoorStateFragment doorStateFragment = new DoorStateFragment();

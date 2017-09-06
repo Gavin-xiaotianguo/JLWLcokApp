@@ -119,6 +119,7 @@
                 android:id="@+id/btn_state"/>
 
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
@@ -236,7 +237,6 @@
 
             </ListView>
         </LinearLayout>
-
 
     </LinearLayout>
 

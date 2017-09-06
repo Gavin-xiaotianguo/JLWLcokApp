@@ -64,9 +64,6 @@ public class Amain extends Activity {
 
         Log.i(TAG, "ble_ok_1");
         if (mBluetoothAdapter == null) {
-//		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//		    startActivityForResult(enableBtIntent, 0);
-//			mBluetoothAdapter.enable();
             Toast.makeText(this, "Adapter null", Toast.LENGTH_SHORT).show();
         }
         mBluetoothAdapter.enable();
@@ -97,65 +94,20 @@ public class Amain extends Activity {
                 byte[] buffer1 = {(byte) 0x00, 0x00, 0x00, 0x00, 0x00};
                 mBluetoothGattCharacteristic1.setValue(buffer1);
                 if (mBluetoothGatt.writeCharacteristic(mBluetoothGattCharacteristic1)) {
-//					message("Write " + buffer[0] + " OK");
                     message("Write OK");
                     finish();
-//					mHandler.postDelayed(new Runnable() {
-//
-//						@Override
-//						public void run() {
-//							// TODO 自动生成的方法存根
-//							if (mBluetoothGatt.readCharacteristic(mBluetoothGattCharacteristic2))
-//								message("Read OK");
-//							else
-//								message("Read fail");
-//						}
-//					}, 2000);
                 }
                 else {
-//					message("Write " + buffer[0] + " fail");
                     message("Write fail");
                     finish();
                 }
             }
         });
     }
-/*    public void showRoundProcessDialog(Context mContext, int layout)
-    {
-       *//* OnKeyListener keyListener = new OnKeyListener()
-        {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
-            {
-                if (keyCode == KeyEvent.KEYCODE_HOME || keyCode == KeyEvent.KEYCODE_SEARCH)
-                {
-                    return true;
-                }
-                return false;
-            }
-        };*//*
-
-        Mydialog = new AlertDialog.Builder(mContext).create();
-        Mydialog.setTitle("提示");
-        //mDialog.setMessage("正在登陆，请稍后...");
-        //mDialog.setOnKeyListener(keyListener);
-        Mydialog.show();
-        // 注意此处要放在show之后 否则会报异常
-        Mydialog.setContentView(layout);
-    }*/
 
     private void scanLeDevice(final boolean enable) {
 
         if (enable) {
-            // Stops scanning after a pre-defined scan period.
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mScanning = false;
-//                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//                    message("Stop scanning");
-//                }
-//            }, SCAN_PERIOD); //10秒后停止搜索
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback); //开始搜索
             message("Start scanning");
@@ -171,7 +123,6 @@ public class Amain extends Activity {
         @Override
         public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
             final String dstname = doornumber;
-//        	message(device.getName());
             if (!(dstname.equals(device.getName())))
                 return;
             mBluetoothDeviceAddress = device.getAddress();
@@ -186,7 +137,6 @@ public class Amain extends Activity {
             return false;
         }
         message("Start Connect");
-
         // Previously connected device. Try to reconnect. (先前连接的设备。 尝试重新连接)
         if (mBluetoothDeviceAddress != null && address.equals(mBluetoothDeviceAddress) && mBluetoothGatt != null) {
             Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
@@ -201,12 +151,6 @@ public class Amain extends Activity {
                 return false;
             }
         }
-//		if (mBluetoothGatt != null)
-//		{
-//			mBluetoothGatt.disconnect();
-//			message("Disconnecting");
-//		}
-
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         if (device == null) {
             message("Device not found");
@@ -214,9 +158,7 @@ public class Amain extends Activity {
             scanLeDevice(true);
             return false;
         }
-        // We want to directly connect to the device, so we are setting the
-        // autoConnect
-        // parameter to false.
+
         mBluetoothGatt = device.connectGatt(this, false, mGattCallback); //该函数才是真正的去进行连接
         Log.d(TAG, "Trying to create a new connection.");
         mBluetoothDeviceAddress = address;
@@ -313,10 +255,7 @@ public class Amain extends Activity {
 
         @Override //设备发出通知时会调用到该接口
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-//			if (characteristic.getValue() != null) {
-//			      System.out.println(characteristic.getStringValue(0));
-//			}
-//			System.out.println("--------onCharacteristicChanged-----");
+
             message("Characteristic Changed: " + characteristic.getUuid().toString());
             if (characteristic == mBluetoothGattCharacteristic2) {
                 message("Char AAC2: " + char2hex(characteristic.getValue()));
@@ -325,12 +264,10 @@ public class Amain extends Activity {
 
         @Override
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-//			System.out.println("rssi = " + rssi);
         }
 
         @Override //当向Characteristic写数据时会回调该函数
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-//			System.out.println("--------write success----- status:" + status);
             message("Characteristic Write");
         }
     };

@@ -422,25 +422,22 @@ public class DoorStateFragment extends Fragment {
 
         @Override //设备发出通知时会调用到该接口
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-//			if (characteristic.getValue() != null) {
-//			      System.out.println(characteristic.getStringValue(0));
-//			}
-//			System.out.println("--------onCharacteristicChanged-----");
-            message(/*"Characteristic Changed: " + characteristic.getUuid().toString()*/"");
+
+            message("");
             if (characteristic == mBluetoothGattCharacteristic2) {
-                message(/*"Char AAC2: " + char2hex(characteristic.getValue())*/"");
+                message("");
             }
         }
 
         @Override
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-//			System.out.println("rssi = " + rssi);
+
         }
 
-        @Override //当向Characteristic写数据时会回调该函数
+        @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-//			System.out.println("--------write success----- status:" + status);
-            message(/*Characteristic Write*/"");
+
+            message("");
         }
     };
 
