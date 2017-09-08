@@ -8,21 +8,21 @@
                 android:orientation="vertical"
                 tools:context="com.example.gxt.jlwlcokapp.Main2Activity">
 
-
-
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAuqamarin"
+        android:background="@color/colorDarkGrey"
         android:id="@+id/toolbar"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="智能蓝牙开锁系统(管理员)"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorWhite"/>
+
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
@@ -30,26 +30,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/navigation2"
         android:layout_alignParentStart="true"/>
-    <!--<TextView-->
-    <!--android:id="@+id/message"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-    <!--android:layout_marginTop="27dp"-->
-    <!--android:text="@string/title_lock"-->
-    <!--android:layout_below="@+id/toolbar"-->
-    <!--android:layout_centerHorizontal="true"/>-->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAuqamarin"
-        app:itemIconTint="@color/colorPrimary"
-        app:itemTextColor="@color/colorPrimary"
-        app:menu="@menu/navigation2" />
+        android:background="@color/colorWhite"
+        app:itemIconTint="@color/colorLimeGreen"
+        app:itemTextColor="@color/colorLimeGreen"
+        app:menu="@menu/navigation2"/>
 
 </RelativeLayout>

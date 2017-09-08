@@ -3,6 +3,7 @@
              android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+
              tools:context="com.example.gxt.jlwlcokapp.MyLockFragment">
     //用户使用界面
 
@@ -121,7 +122,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:text="开             锁"
-            android:background="@drawable/buttonstyle"
+            android:background="@drawable/selector"
             />
 
         <!--
@@ -177,7 +178,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="添加蓝牙锁"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/buttonstyle1"
         android:textColor="@color/colorPrimary"
         android:id="@+id/bt_addDevices"
         android:textSize="20sp"

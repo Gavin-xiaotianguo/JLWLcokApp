@@ -10,7 +10,7 @@ package com.example.gxt.jlwlcokapp.web;
 
 public class WebService{
 
-    private static String IP = "192.168.1.131:8080";
+    private static String IP = "106.14.134.147:8080";/*"192.168.1.131:8080";*/
 
     // 通过Get方式获取HTTP服务器数据
     public static String executeHttpGet(String username, String password, String helloServlet) {

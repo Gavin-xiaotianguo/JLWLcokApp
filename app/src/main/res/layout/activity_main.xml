@@ -11,28 +11,17 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAuqamarin"
+        android:background="@color/colorDarkGrey"
         android:id="@+id/toolbar"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
-<!--        <ImageButton
-            android:id="@+id/ibtn_main_close"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="start"
-            android:background="@drawable/ic_close"
-            android:scaleType="center"
-            />
-        <View
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            android:background="@color/colorPrimary"/>-->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="智能蓝牙开锁系统"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorWhite"/>
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
@@ -40,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/navigation"
         android:layout_alignParentStart="true"/>
         <!--<TextView-->
             <!--android:id="@+id/message"-->
@@ -57,9 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorAuqamarin"
-        app:itemIconTint="@color/colorPrimary"
-        app:itemTextColor="@color/colorPrimary"
+        app:itemBackground="@color/colorWhite"
+        app:itemIconTint="@color/colorLimeGreen"
+        app:itemTextColor="@color/colorLimeGreen"
         app:menu="@menu/navigation" />
 
 </RelativeLayout>

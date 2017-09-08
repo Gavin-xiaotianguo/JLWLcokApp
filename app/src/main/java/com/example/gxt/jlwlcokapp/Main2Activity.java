@@ -37,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
                 case R.id.navigation_door_state:
                     mViewPager.setCurrentItem(0, false);
                     return true;
-                case R.id.navigation_record:
+                case R.id.navigation_else:
                     mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_user:
@@ -69,12 +69,12 @@ public class Main2Activity extends AppCompatActivity {
         // 初始化fragments
         mFragments = new ArrayList<>();
         DoorStateFragment doorStateFragment = new DoorStateFragment();
-        doorStateFragment.setArguments(bundle1);
-        RecordFragment recordFragment = new RecordFragment();
-        recordFragment.setArguments(bundle1);
+        //doorStateFragment.setArguments(bundle1);
+        ElseFragment elseFragment = new ElseFragment();
+        //elseFragment.setArguments(bundle1);
         UserFragment userFragment = new UserFragment();
         mFragments.add(doorStateFragment);
-        mFragments.add(recordFragment);
+        mFragments.add(elseFragment);
         mFragments.add(userFragment);
         // 初始化ViewPager
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -142,7 +142,7 @@ public class Main2Activity extends AppCompatActivity {
                     bottomNavigationView.setSelectedItemId(R.id.navigation_door_state);
                     break;
                 case 1:
-                    bottomNavigationView.setSelectedItemId(R.id.navigation_record);
+                    bottomNavigationView.setSelectedItemId(R.id.navigation_else);
                     break;
                 case 2:
                     bottomNavigationView.setSelectedItemId(R.id.navigation_user);

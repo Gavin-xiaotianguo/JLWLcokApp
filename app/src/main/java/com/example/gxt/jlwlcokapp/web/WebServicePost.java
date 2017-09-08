@@ -13,7 +13,7 @@ import java.net.URL;
  */
 
 public class WebServicePost {
-    private static String IP = "192.168.1.131:8080";
+    private static String IP = "106.14.134.147:8080";/*"192.168.1.131:8080";*/
 
     // 通过Get方式获取HTTP服务器数据
     public static String executeHttpPost(String username, String userMAC, String url,String str) {

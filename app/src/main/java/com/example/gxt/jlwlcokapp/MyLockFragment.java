@@ -162,7 +162,7 @@ public class MyLockFragment extends Fragment {
                     return;
                 }
                 if (mBluetoothGattCharacteristic1 == null) {
-                    message("");
+                    message("未找到蓝牙特征值！");
                     return;
                 }
                 if (flage == true) {
@@ -177,25 +177,13 @@ public class MyLockFragment extends Fragment {
                 byte[] buffer1 = {(byte) 0x00, 0x00, 0x00, 0x00, 0x00};
                 mBluetoothGattCharacteristic1.setValue(buffer1);
                 if (mBluetoothGatt.writeCharacteristic(mBluetoothGattCharacteristic1)) {
-//					message("Write " + buffer[0] + " OK");
-                    message(/*Write OK*/"成功开锁!");
-                    getActivity().finish();
-//					mHandler.postDelayed(new Runnable() {
-//
-//						@Override
-//						public void run() {
-//							// TODO 自动生成的方法存根
-//							if (mBluetoothGatt.readCharacteristic(mBluetoothGattCharacteristic2))
-//								message("Read OK");
-//							else
-//								message("Read fail");
-//						}
-//					}, 2000);
+                    Toast.makeText(getActivity(), "成功开锁！", Toast.LENGTH_SHORT).show();
+                    //message(/*Write OK*/"成功开锁!");
                 }
                 else {
-//					message("Write " + buffer[0] + " fail");
-                    message(/*Write fail*/"开锁失败！");
-                    getActivity().finish();
+                    Toast.makeText(getActivity(), "开锁失败！", Toast.LENGTH_SHORT).show();
+                    //message(/*Write fail*/"开锁失败！");
+
                 }
             }
         });
@@ -262,11 +250,11 @@ public class MyLockFragment extends Fragment {
             Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
             if (mBluetoothGatt.connect()) {
                 mConnectionState = BluetoothProfile.STATE_CONNECTING;
-                message(/*Reconnect*/"");
+                message(/*Reconnect*/"重新连接！");
                 return true;
             }
             else {
-                message(/*Rescan*/"");
+                message(/*Rescan*/"重新搜索！");
                 scanLeDevice(true);
                 return false;
             }
@@ -307,7 +295,7 @@ public class MyLockFragment extends Fragment {
             message(/*ConnectionStateChange*/"");
 
             if (newState == BluetoothProfile.STATE_CONNECTED) { //连接成功
-                message(/*Connected*/"");
+                message(/*Connected*/"已连接！");
                 mBluetoothGatt.discoverServices(); //连接成功后就去找出该设备中的服务 private BluetoothGatt mBluetoothGatt;
             }
             else if (newState == BluetoothProfile.STATE_CONNECTING) {  //连接失败
@@ -344,7 +332,7 @@ public class MyLockFragment extends Fragment {
                 for (BluetoothGattCharacteristic characteristic : characteristic_list) {
                     if (characteristic.getUuid().toString().substring(4, 8).equals(characteristic1_uuid)) {
                         mBluetoothGattCharacteristic1 = characteristic;
-                        message(/*"Characteristic1 found"*/"");
+                        message(/*"Characteristic1 found"*/"连接成功，可开锁！");
                     }
                     if (characteristic.getUuid().toString().substring(4, 8).equals(characteristic2_uuid)) {
                         mBluetoothGattCharacteristic2 = characteristic;

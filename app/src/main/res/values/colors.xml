@@ -4,8 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWindowBackground">#dedede</color>
-    <color name="colorDarkGrey">#676767</color>
+    <color name="colorDarkGrey">#434343</color>
     <color name="colorPaleGreen">#98fb98</color> //苍白的绿色
+    <color name="colorLimeGreen">#32CD32</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorGreenYellow">#ADFF2F</color>
     <color name="colorGray">#808080</color>

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_record"
         android:icon="@drawable/ic_help_black"
-        android:title="@string/title_record" />
+        android:title="@string/title_apply" />
 
     <item
         android:id="@+id/navigation_user"

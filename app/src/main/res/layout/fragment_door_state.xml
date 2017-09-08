@@ -106,14 +106,14 @@
             <Button
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSkyBlue"
+                android:background="@drawable/selector"
                 android:text="开启当前教室"
                 android:id="@+id/btn_op"/>
 
             <Button
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSkyBlue"
+                android:background="@drawable/selector"
                 android:layout_marginLeft="20dp"
                 android:text="查看该教室状态"
                 android:id="@+id/btn_state"/>

@@ -3,21 +3,18 @@ package com.example.gxt.jlwlcokapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codbking.widget.DatePickDialog;
-import com.codbking.widget.bean.DateType;
 import com.example.gxt.jlwlcokapp.web.WebServicePost;
 
 import org.json.JSONArray;
@@ -25,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 //import com.example.web.WebServicePost;
 
@@ -44,8 +42,10 @@ public class RecordFragment extends Fragment {
     private Spinner floor;
     private Spinner classroom;
     private TextView tv_feedback;
-    private EditText item1;
-    private EditText item2;
+    private EditText use_time;
+    private Button datebtn;
+    private EditText use_time1;
+    private Button datebtn1;
     private EditText applyreason;
 
     private Button key;
@@ -57,42 +57,41 @@ public class RecordFragment extends Fragment {
 
     private String startTime;
     private String endTime;
-    ArrayList my1=new ArrayList( );
-    JSONObject jsonRoom=new JSONObject(  );
+    ArrayList my1 = new ArrayList();
+    JSONObject jsonRoom = new JSONObject();
     String[] classbar = new String[]{"00", "00", "00"};
     String[] buildingdata = new String[]{" ", "博弈", "笃行"};
     String[] floordata = new String[]{" ", "三楼", "四楼", "五楼", "六楼"};
     String[] classroomdata = new String[]{" ", "02", "03", "04", "05", "06"};
 
-        // 子线程接收数据，主线程修改数据
-        public class MyThread implements Runnable {
+    // 子线程接收数据，主线程修改数据
+    public class MyThread implements Runnable {
 
-            @Override
-            public void run() {
-               s = WebServicePost.executeHttpPost(userid,mClassroom,"ApplyServlet",jsonRoom.toString());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_feedback.setText(s);
-                        Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
+        @Override
+        public void run() {
+            s = WebServicePost.executeHttpPost(userid, mClassroom, "ApplyServlet", jsonRoom.toString());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    tv_feedback.setText(s);
+                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
+    }
 
 
-    public String convert(String utfString){//unicode编码字符转为中文字符
+    public String convert(String utfString) {//unicode编码字符转为中文字符
         StringBuilder sb = new StringBuilder();
         int i = -1;
         int pos = 0;
 
-        while((i=utfString.indexOf("\\u", pos)) != -1){
+        while ((i = utfString.indexOf("\\u", pos)) != -1) {
             sb.append(utfString.substring(pos, i));
-            if(i+5 < utfString.length()){
-                pos = i+6;
-                sb.append((char)Integer.parseInt(utfString.substring(i+2, i+6), 16));
+            if (i + 5 < utfString.length()) {
+                pos = i + 6;
+                sb.append((char) Integer.parseInt(utfString.substring(i + 2, i + 6), 16));
             }
         }
         sb.append(utfString.substring(pos));
@@ -116,27 +115,31 @@ public class RecordFragment extends Fragment {
         Bundle bundle = getArguments();
         userid = bundle.getString("DATA1");
 
-        s=bundle.getString("DATA3");
-        s=convert(s);
+        s = bundle.getString("DATA3");
+        s = convert(s);
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(s);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                my1.add(jsonObject.getString("教学楼"));}
+                my1.add(jsonObject.getString("教学楼"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        item1 = (EditText) getActivity().findViewById(R.id.item1);
-        item1.setInputType(InputType.TYPE_NULL);
-        item2 = (EditText) getActivity().findViewById(R.id.item2);
-        item2.setInputType(InputType.TYPE_NULL);
 
         tv_feedback = (TextView) getActivity().findViewById(R.id.tv_feedback);
 
-        applyreason =(EditText) getActivity().findViewById(R.id.tv_apply_reason);
+        applyreason = (EditText) getActivity().findViewById(R.id.tv_apply_reason);
+
+        use_time = (EditText) getActivity().findViewById(R.id.use_time);
+
+        datebtn = (Button) getActivity().findViewById(R.id.dateBtn);
+        use_time1 = (EditText) getActivity().findViewById(R.id.use_time1);
+
+        datebtn1 = (Button) getActivity().findViewById(R.id.dateBtn1);
 
         key = (Button) getActivity().findViewById(R.id.btn_send_request);
 
@@ -151,12 +154,11 @@ public class RecordFragment extends Fragment {
         building.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = (String)my1.get(position);
+                String str = (String) my1.get(position);
                 classbar[0] = str;
-                try{
-                    jsonRoom.put("教学楼",classbar[0]) ;
-                }catch (JSONException e)
-                {
+                try {
+                    jsonRoom.put("教学楼", classbar[0]);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -172,7 +174,7 @@ public class RecordFragment extends Fragment {
                 String str1 = floordata[position];
                 classbar[1] = str1;
                 try {
-                    jsonRoom.put("楼层",classbar[1]);
+                    jsonRoom.put("楼层", classbar[1]);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -190,7 +192,7 @@ public class RecordFragment extends Fragment {
                 String str2 = classroomdata[position];
                 classbar[2] = str2;
                 try {
-                    jsonRoom.put("房间号",classbar[2]);
+                    jsonRoom.put("房间号", classbar[2]);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -202,14 +204,58 @@ public class RecordFragment extends Fragment {
             }
         });
 
+
+        datebtn.setOnClickListener(new View.OnClickListener() {
+            Calendar c = Calendar.getInstance();
+
+            @Override
+            public void onClick(View v) {
+                // 最后一个false表示不显示日期，如果要显示日期，最后参数可以是true或者不用输入
+                new DoubleDatePickerDialog(getActivity(), 0, new DoubleDatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear,
+                                          int startDayOfMonth) {
+                        String textString = String.format("开始时间：%d-%d-%d", startYear,
+                                startMonthOfYear + 1, startDayOfMonth);
+                        use_time.setText(textString);
+                    }
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), true).show();
+            }
+        });
+
+
+
+
+
+        datebtn1.setOnClickListener(new View.OnClickListener() {
+            Calendar c = Calendar.getInstance();
+
+            @Override
+            public void onClick(View v) {
+                // 最后一个false表示不显示日期，如果要显示日期，最后参数可以是true或者不用输入
+                new DoubleDatePickerDialog(getActivity(), 0, new DoubleDatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear,
+                                          int startDayOfMonth) {
+                        String textString = String.format("结束时间：%d-%d-%d", startYear,
+                                startMonthOfYear + 1, startDayOfMonth);
+                        use_time1.setText(textString);
+                    }
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), true).show();
+            }
+        });
+
+
         key.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
                 try {
-                    jsonRoom.put("申请理由",applyreason.getText().toString());
-                    jsonRoom.put("开始时间","9:00");
-                    jsonRoom.put("结束时间","11:00");
+                    jsonRoom.put("申请理由", applyreason.getText().toString());
+                    jsonRoom.put("开始时间", use_time.getText().toString());
+                    jsonRoom.put("结束时间", use_time1.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -218,45 +264,8 @@ public class RecordFragment extends Fragment {
             }
         });
 
-        item1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickDialog(DateType.TYPE_YMDHM);
-
-            }
-        });
-        item2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickDialog(DateType.TYPE_YMDHM);
-
-            }
-        });
     }
 
-
-    private void showDatePickDialog(DateType type) {
-        DatePickDialog dialog = new DatePickDialog(getActivity());
-
-        //设置上下年分限制
-        dialog.setYearLimt(5);
-        //设置标题
-        dialog.setTitle("选择时间");
-        //设置类型
-        dialog.setType(type);
-        //设置消息体的显示格式，日期格式
-        dialog.setMessageFormat("yyyy-MM-dd HH:mm");
-        //设置选择回调
-        dialog.setOnChangeLisener(null);
-        //设置点击确定按钮回调
-        dialog.setOnSureLisener(null);
-        dialog.show();
-    }
-
-    public void getDate(String Date) {
-        DateUtils gd = new DateUtils();
-
-    }
 }
 
 

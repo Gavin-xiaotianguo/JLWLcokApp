@@ -7,9 +7,9 @@
         android:title="@string/title_door_state" />
 
     <item
-        android:id="@+id/navigation_record"
+        android:id="@+id/navigation_else"
         android:icon="@drawable/ic_help_black"
-        android:title="@string/title_record" />
+        android:title="@string/title_else" />
 
     <item
         android:id="@+id/navigation_user"

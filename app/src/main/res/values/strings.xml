@@ -6,6 +6,8 @@
     <string name="unlock">开锁</string>
     <string name="title_activity_main">Main</string>
     <string name="title_lock">我的蓝牙锁</string>
+    <string name="title_apply">申请教室</string>
+    <string name="title_else">其他</string>
     <string name="title_record">教室开锁</string>
     <string name="title_user">个人中心</string>
     <string name="title_door_state">门锁状态</string>

@@ -66,6 +66,7 @@ public class DoorStateFragment extends Fragment {
     private Spinner aClassroom;
 
     private Button btn_state;
+    private Button btn_op;
     private String userid;
     private String mClassroom;
     // 返回主线程更新数据
@@ -73,9 +74,9 @@ public class DoorStateFragment extends Fragment {
     private String s;
 
     String[] aClassbar = new String[]{"00", "00", "00"};
-    String[] aBuildingdata = new String[]{" ","JLW", "博弈", "笃行"};
-    String[] aFloordata = new String[]{" ", "三楼", "四楼", "五楼", "六楼"};
-    String[] aClassroomdata = new String[]{" ","Lock2", "02", "03", "04", "05", "06"};
+    String[] aBuildingdata = new String[]{"JLW", "博弈", "笃行"};
+    String[] aFloordata = new String[]{"三楼", "四楼", "五楼", "六楼"};
+    String[] aClassroomdata = new String[]{"Lock2", "02", "03", "04", "05", "06"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,15 +89,15 @@ public class DoorStateFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+/*
         Bundle bundle = getArguments();
-        userid=bundle.getString("DATA1");
+        userid=bundle.getString("DATA1");*/
 
         //--------------------------------
         if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(getActivity(), R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
             Log.i(TAG, "ble_not_supported");
-            getActivity().finish();
+
         }
         final BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
@@ -112,8 +113,8 @@ public class DoorStateFragment extends Fragment {
         Log.i(TAG, "mBluetoothAdapter.enable");
         Log.i(TAG, "ble_ok_2");
 
-        View button1 = getActivity().findViewById(R.id.btn_op);
-        button1.setOnClickListener(new View.OnClickListener() {
+        btn_op = getActivity().findViewById(R.id.btn_op);
+        btn_op.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -135,25 +136,11 @@ public class DoorStateFragment extends Fragment {
                 byte[] buffer1 = {(byte) 0x00, 0x00, 0x00, 0x00, 0x00};
                 mBluetoothGattCharacteristic1.setValue(buffer1);
                 if (mBluetoothGatt.writeCharacteristic(mBluetoothGattCharacteristic1)) {
-//					message("Write " + buffer[0] + " OK");
                     message(/*Write OK*/"成功开锁!");
-                    getActivity().finish();
-//					mHandler.postDelayed(new Runnable() {
-//
-//						@Override
-//						public void run() {
-//							// TODO 自动生成的方法存根
-//							if (mBluetoothGatt.readCharacteristic(mBluetoothGattCharacteristic2))
-//								message("Read OK");
-//							else
-//								message("Read fail");
-//						}
-//					}, 2000);
                 }
                 else {
-//					message("Write " + buffer[0] + " fail");
                     message(/*Write fail*/"开锁失败！");
-                    getActivity().finish();
+
                 }
             }
         });
@@ -204,6 +191,7 @@ public class DoorStateFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        mClassroom = aClassbar[0]+ aClassbar[1]+ aClassbar[2];
 
         btn_state.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -229,23 +217,8 @@ public class DoorStateFragment extends Fragment {
 
     }
     public void showRoundProcessDialog(Context mContext, int layout) {
-       /* OnKeyListener keyListener = new OnKeyListener()
-        {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
-            {
-                if (keyCode == KeyEvent.KEYCODE_HOME || keyCode == KeyEvent.KEYCODE_SEARCH)
-                {
-                    return true;
-                }
-                return false;
-            }
-        };*/
-
         Mydialog = new AlertDialog.Builder(mContext).create();
         Mydialog.setTitle("提示");
-        //mDialog.setMessage("正在登陆，请稍后...");
-        //mDialog.setOnKeyListener(keyListener);
         Mydialog.show();
         // 注意此处要放在show之后 否则会报异常
         Mydialog.setContentView(layout);
@@ -254,15 +227,6 @@ public class DoorStateFragment extends Fragment {
     private void scanLeDevice(final boolean enable) {
 
         if (enable) {
-            // Stops scanning after a pre-defined scan period.
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mScanning = false;
-//                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//                    message("Stop scanning");
-//                }
-//            }, SCAN_PERIOD); //10秒后停止搜索
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback); //开始搜索
             message(/*Start scanning*/"开始搜索门锁！");
@@ -277,8 +241,7 @@ public class DoorStateFragment extends Fragment {
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            final String dstname = mClassroom;
-//        	message(device.getName());
+            String dstname = mClassroom;
             if (!(dstname.equals(device.getName())))
                 return;
             mBluetoothDeviceAddress = device.getAddress();
@@ -308,11 +271,7 @@ public class DoorStateFragment extends Fragment {
                 return false;
             }
         }
-//		if (mBluetoothGatt != null)
-//		{
-//			mBluetoothGatt.disconnect();
-//			message("Disconnecting");
-//		}
+
 
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         if (device == null) {
